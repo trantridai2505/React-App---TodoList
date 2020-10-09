@@ -1,0 +1,93 @@
+.App {
+  text-align: center;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box; }
+
+a {
+  text-decoration: none; }
+
+img {
+  display: block;
+  max-width: 100%; }
+
+body {
+  font-family: "Poppins",sans-serif;
+  color: #1a2b5f;
+  line-height: 1.4;
+  font-weight: 400; }
+
+label{
+  display: inline-block;
+  max-width: 100%;
+  margin-bottom: 5px;
+  font-weight: 700;
+}
+
+button{
+  white-space: nowrap;
+}
+
+td{
+  padding: 0 auto;
+  font-size: 16px;
+}
+
+.content{
+  display: flex;
+}
+
+.text-center{
+  padding: 25px;
+}
+
+.content--right{
+  margin-left: 30px;
+  margin-top: 20px;
+  width: 70%;
+}
+
+.content--left{
+  height: 100%;
+  max-width: 40%;
+  border: 1px solid #faebcc;
+  margin-top: 20px;
+}
+
+.left--title{
+  background-color: #fcf8e3;
+  color: #8a6d3b;
+  font-size: 13px;
+  padding: 10px 15px 5px;
+}
+
+.title-h5{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.left--body{
+  padding: 20px;
+}
+
+.search--sort--content{
+  margin-top: 10px;
+  margin-bottom: 10px;
+  display: flex;
+}
+
+.content--table{
+  max-width: 1000rem;
+}
+
+.color--active{
+  background-color: red;
+}
+
+/*# sourceMappingURL=style.css.map */
+
