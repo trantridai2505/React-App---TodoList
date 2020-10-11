@@ -90,6 +90,10 @@ td{
   max-width: 1000rem;
 }
 
+.point{
+  cursor: pointer;
+}
+
 .color--active{
   background-color: red;
 }

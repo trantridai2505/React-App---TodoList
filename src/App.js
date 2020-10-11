@@ -9,8 +9,8 @@ class App extends Component{
     constructor(props){
       super(props);
       this.state = {
-        tasks: [],
-        isDisplayForm: false,  // id, name, status
+        tasks: [], // id, name, status
+        isDisplayForm: false,  
       }
     }
     
@@ -54,7 +54,46 @@ class App extends Component{
       });
       localStorage.setItem('tasks',JSON.stringify(tasks));  
     }
+
+    onUpdateStatus = (id) => {
+      var { tasks } = this.state;
+      var index = this.findIndex(id);
+      console.log(index);
+      if(index !== -1){
+        tasks[index].status = !tasks[index].status;
+        this.setState({
+          tasks : tasks
+        });
+
+        localStorage.setItem('tasks',JSON.stringify(tasks));
+      }
+    }
+
+    findIndex = (id) =>{
+      var { tasks } = this.state;
+      var result = -1;
+      tasks.forEach((tasks,index) => {
+        if(tasks.id === id){
+          result = index;
+        }
+      });
+      return result;
+    }
     
+    onDelete = (id) => {
+      var { tasks } = this.state;
+      var index = this.findIndex(id);
+      console.log(index);
+      if(index !== -1){
+        tasks.splice(index, 1);
+        this.setState({
+          tasks : tasks
+        });
+
+        localStorage.setItem('tasks',JSON.stringify(tasks));
+      }
+      this.onCloseForm();
+    }
 
     render(){
 
@@ -89,7 +128,11 @@ class App extends Component{
 
                   <div className="content--table">
                       {/* TaskList - Table */}
-                      <TaskList tasks = { tasks } />
+                      <TaskList 
+                        tasks = { tasks } 
+                        onUpdateStatus = {this.onUpdateStatus} 
+                        onDelete = { this.onDelete }
+                      />
                   </div>
               </div>
           </div>
