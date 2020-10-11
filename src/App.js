@@ -24,27 +24,6 @@ class App extends Component{
       }
     }
 
-    onGenerateData = () =>{
-      var tasks = [
-        {
-          id: this.generateID(),
-          name: 'Go swimming',
-          status: true
-        },
-
-        {
-          id: this.generateID(),
-          name: 'Go to school',
-          status: false
-        },
-      ];
-
-      this.setState({
-        tasks : tasks
-      });
-      localStorage.setItem('tasks', JSON.stringify(tasks));
-    }
-
     //create random ID
     s4(){
       return Math.floor((1+Math.random()) * 0x10000).toString(16).substring(1);
@@ -60,12 +39,28 @@ class App extends Component{
       });
     }
 
+    onCloseForm =() =>{
+      this.setState({
+        isDisplayForm : false
+      });
+    }
+
+    onSubmit = (data) => {
+      var { tasks } = this.state;
+      data.id = this.generateID();
+      tasks.push(data);
+      this.setState({
+        tasks : tasks
+      });
+      localStorage.setItem('tasks',JSON.stringify(tasks));  
+    }
     
 
     render(){
 
       var {tasks, isDisplayForm} = this.state ; // var tasks = this.state.tasks
-      var elmTaskForm = isDisplayForm ? <TaskForm /> : '';
+      var elmTaskForm = isDisplayForm ? <TaskForm onCloseForm = {this.onCloseForm} onSubmit = {this.onSubmit} /> 
+                                      : '';
 
       return(
         <div className="container">
@@ -74,7 +69,7 @@ class App extends Component{
               <hr/>
           </div>
       
-          <div className="content">
+          <div className="content mb-4">
               {/* Form */}
               { elmTaskForm }
 
@@ -85,14 +80,6 @@ class App extends Component{
                     onClick = { this.onToggleForm }
                     >
                       <span className="fa fa-plus mr-1"></span>Thêm Công Việc
-                  </button>
-
-                  <button 
-                      type="button" 
-                      className="btn btn-danger ml-2"
-                      onClick = {this.onGenerateData}
-                      >
-                      Generate Data
                   </button>
 
                   {/* <div className="search--sort--content"> */}
