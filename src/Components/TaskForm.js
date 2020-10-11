@@ -2,13 +2,17 @@ import React, { Component } from 'react';
 
 
 class TaskForm extends Component{
+
   render(){
     return(
-      <div className="content--left">
+    <div className="content--left">
         <div className="left--title">
             <h5 className="title-h5">
                 Thêm Công Việc
-                <span className="fa fa-times-circle"></span>
+                <a href = 'string'><span 
+                    className="fa fa-times-circle"
+                    
+                ></span></a>
             </h5>
         </div>
 

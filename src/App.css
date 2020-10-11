@@ -51,6 +51,11 @@ td{
   width: 70%;
 }
 
+.full--right{
+  width: 100%;
+  margin-top: 20px;
+}
+
 .content--left{
   height: 100%;
   max-width: 40%;
