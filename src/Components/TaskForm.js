@@ -6,8 +6,37 @@ class TaskForm extends Component{
     constructor(props){
         super(props);
         this.state = {
+            id: '',
             name: '',
             status: false ,
+        }
+    }
+
+    componentWillMount(){
+        if(this.props.task){
+            this.setState({
+                id : this.props.task.id,
+                name : this.props.task.name,
+                status : this.props.task.status
+            });
+        }
+    }
+
+    // get values when we convert Add --> Edit
+    componentWillReceiveProps(nextProps){
+        if(nextProps && nextProps.task){
+            this.setState({
+                id : nextProps.task.id,
+                name : nextProps.task.name,
+                status : nextProps.task.status
+            });
+        }else if(nextProps && nextProps.task === null) // !nextProps.task
+        {
+            this.setState({
+                id : '',
+                name : '',
+                status : false
+            });
         }
     }
 
@@ -43,11 +72,14 @@ class TaskForm extends Component{
     }
 
   render(){
+
+    var { id } = this.state;
+    
     return(
     <div className="content--left">
         <div className="left--title">
             <h5 className="title-h5">
-                Thêm Công Việc
+                { id !== '' ? ' Cập Nhật Công Việc' : ' Thêm Công Việc '}
                 <a href = 'true'><span 
                     className="fa fa-times-circle"
                     onClick = {this.onCloseForm}
@@ -83,7 +115,7 @@ class TaskForm extends Component{
                         <button
                             type="submit" 
                             className="btn btn-warning"
-                        >Thêm</button>&nbsp;
+                        >Lưu</button>&nbsp;
 
                         <button 
                             type="button" 
