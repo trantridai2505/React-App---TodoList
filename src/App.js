@@ -15,7 +15,10 @@ class App extends Component{
         filter : {
           name : '',
           status: -1
-        }  
+        },
+        keyword : '',
+        sortBy : 'name',
+        sortValue : 1, 
       }
     }
     
@@ -142,9 +145,31 @@ class App extends Component{
       });
     }
 
+    onSearch = (keyword) => {
+      this.setState({
+        keyword : keyword,
+      });
+    }
+
+    onSort = (sortBy, sortValue) => {
+      
+      this.setState({
+        sortBy : sortBy,
+        sortValue : sortValue,
+      })
+      console.log(this.state);
+    }
+
     render(){
 
-      var {tasks, isDisplayForm, taskEditing, filter} = this.state ; // var tasks = this.state.tasks
+      var { tasks, 
+            isDisplayForm, 
+            taskEditing, 
+            filter, 
+            keyword,
+            sortBy,
+            sortValue
+          } = this.state ; // var tasks = this.state.tasks
       if(filter){
         if(filter.name){
           tasks = tasks.filter((task) => {
@@ -160,6 +185,27 @@ class App extends Component{
             }
           });
         }
+
+        if(keyword){
+          tasks = tasks.filter((task) => {
+            return task.name.toLowerCase().indexOf(keyword) !== -1;
+          });
+        }
+
+        if(sortBy === 'name'){
+          tasks.sort((a, b) => {
+              if(a.name > b.name ) return sortValue;
+              else if (a.name > b.name) return -sortValue;  
+             else return 0;
+        });
+        }else{
+          tasks.sort((a, b) => {
+              if(a.name > b.name ) return -sortValue;
+              else if (a.name > b.name) return sortValue;  
+              else return 0;
+          });
+        }
+
       var elmTaskForm = isDisplayForm ? <TaskForm 
                                             onCloseForm = {this.onCloseForm} 
                                             onSubmit = {this.onSubmit} 
@@ -189,7 +235,12 @@ class App extends Component{
 
                   {/* <div className="search--sort--content"> */}
                       {/* Search Sort */}
-                      <Control />
+                      <Control 
+                        onSearch = { this.onSearch } 
+                        onSort = { this.onSort }
+                        sortBy = {sortBy}
+                        sortValue = {sortValue}
+                      />
                   {/* </div> */}
 
                   <div className="content--table">
